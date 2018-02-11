@@ -26,9 +26,26 @@ class DocTool:
         # split text according to whitespace(space) character
         return self.pureText.split(" ")
 
+def load_stop_words(file="dataset/tr_stopwords.txt"):
+    """
+    Read file which contains stopwors and return dictionary of this words
+    """
+    stopwords = None
+    try:
+        with open(file,"r") as f:
+            lines = f.read().splitlines()
+            stopwords = dict(zip(lines,lines))
+    except Exception as e:
+        pass
+    return stopwords
+
 
 if __name__=="__main__":
     # test codes
+
+    stopwords = load_stop_words()
+    print("Stopwords:",stopwords)
+
     doc=DocTool()
     text = doc.readFile("dataset/englishText1.txt")
 
