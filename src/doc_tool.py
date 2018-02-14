@@ -9,16 +9,15 @@ def readFile(fname="dataset/turkishText1.txt"):
 
 def text2sentences(text):
     sentences = nltk.tokenize.sent_tokenize(text.lower())
-    # capture characters which are not a-zA-Z0-9 and whitespace then change them with ""(empty) character
-    tempPureSentences = [re.sub(r'[^\w\s]','',x) for x in sentences]
-    pureSentences = [x.replace("\n"," ") for x in tempPureSentences]
+    # capture characters which are not a-zA-Z0-9 and whitespace then change them with space character
+    pureSentences = [re.sub(r'([^\w\s])|[\n]'," ",x) for x in sentences]
     return pureSentences
 
 def sentences2Words(pureSentences,stopwords={}):
     # now, join all sentences and make one text document.
     pureText = " ".join(pureSentences)
     # split text according to whitespace(space) character
-    words =  [word for word in pureText.split(" ") if not is_stop_word(word,stopwords)]
+    words =  [word for word in pureText.split() if not is_stop_word(word,stopwords)]
     return words
 
 def load_stop_words(file="dataset/tr_stopwords.txt"):
