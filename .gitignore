@@ -1,4 +1,5 @@
-
+articles/
+dataset/
 # Created by https://www.gitignore.io/api/linux,python,virtualenv,jupyternotebook
 
 ### JupyterNotebook ###
