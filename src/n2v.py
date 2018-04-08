@@ -45,7 +45,8 @@ class Graph():
 		nodes = list(G.nodes())
 		print('Walk iteration:')
 		for walk_iter in range(num_walks):
-			print(str(walk_iter+1), '/', str(num_walks))
+			if (walk_iter+1) % 500 == 0:
+				print(str(walk_iter+1), '/', str(num_walks))
 			random.shuffle(nodes)
 			for node in nodes:      
 				walks.append(self.node2vec_walk(walk_length=walk_length, start_node=node))
@@ -86,7 +87,6 @@ class Graph():
 			norm_const = sum(unnormalized_probs)
 			normalized_probs =  [float(u_prob)/norm_const for u_prob in unnormalized_probs]
 			alias_nodes[node] = alias_setup(normalized_probs)
-			#print("Node:",node)
 
 		alias_edges = {}
 		triads = {}
@@ -94,7 +94,6 @@ class Graph():
 		if is_directed:
 			for edge in G.edges():
 				alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
-				#print("Edge:",edge)
 		else:
 			for edge in G.edges():
 				alias_edges[edge] = self.get_alias_edge(edge[0], edge[1])
