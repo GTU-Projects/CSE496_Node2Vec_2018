@@ -45,7 +45,7 @@ class Graph():
 		nodes = list(G.nodes())
 		print('Walk iteration:')
 		for walk_iter in range(num_walks):
-			if (walk_iter+1) % 500 == 0:
+			if (walk_iter+1) % 1000 == 0:
 				print(str(walk_iter+1), '/', str(num_walks))
 			random.shuffle(nodes)
 			for node in nodes:      

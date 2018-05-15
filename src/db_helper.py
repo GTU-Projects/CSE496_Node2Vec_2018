@@ -5,12 +5,19 @@ import copy
 class Tweet():
     def __init__(self,sentByScreenName, inReplyToStatusID, inReplyToUserID, text, date, userID, tweetID):
         self.sentByScreenName = sentByScreenName
-        self.inReplyToStatusID = "t"+inReplyToStatusID
-        self.inReplyToUserID = "u"+inReplyToUserID
+        
+        prefixUser='u'
+        prefixTweet='t'
+        if inReplyToStatusID.startswith('t'):
+            prefixUser=''
+            prefixTweet=''
+            
+        self.inReplyToStatusID = prefixTweet+inReplyToStatusID
+        self.inReplyToUserID = prefixUser+inReplyToUserID
         self.text = text
         self.date = date
-        self.userID = "u"+userID
-        self.tweetID = "t"+tweetID
+        self.userID = prefixUser+userID
+        self.tweetID = prefixTweet+tweetID
         
     def __repr__(self):
         str = "############ Tweet: ############ \n" + \
@@ -53,7 +60,18 @@ class DBHelper:
         self.cursor.execute(""" SELECT FriendID FROM {tname} WHERE UserID={userID}""".format(tname=tableName,userID=userID))
         friendIDs = [friend[0] for friend in self.cursor.fetchall()]
         return friendIDs
-
+    
+    
+def getAllFriendsFromJson(path):
+    
+    friendships = None
+    with open(path,'r', encoding='utf-8') as f:
+        friendships = json.load(f)
+        for x in friendships:
+            x['UserID']='u'+x['UserID']
+            x['FriendID']='u'+x['FriendID']
+    return friendships 
+        
 def saveTweetsAsJson(filePath, tweets):
     
     with open(filePath,'w+',encoding='utf8') as f:
