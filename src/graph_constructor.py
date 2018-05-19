@@ -31,8 +31,15 @@ def create_time_graph1(tweets):
         G.add_edge(tweet.date.day,DAY_TAG,weight=1.0)
     return G
 
-def create_time_graph2(tweets):
-    G1 = nx.DiGraph()
+def create_time_graph2(tweets, is_directed=False):
+    
+    G1 = None
+    
+    if is_directed:
+        G1 = nx.DiGraph()
+    else:
+        G1 = nx.Graph()
+    
     G1.add_node(YEAR_TAG)
     G1.add_node(MONTH_TAG)
 
@@ -51,9 +58,9 @@ def create_time_graph2(tweets):
             prevYear = tweet.date.year
             prevMonth = tweet.date.month
             
-        monthFormat = "{month} {year}".format(month=MONTH_NAMES[tweet.date.month],year=tweet.date.year)
+        monthFormat = "{month}.{year}".format(month=MONTH_NAMES[tweet.date.month],year=tweet.date.year)
         if(prevMonth < tweet.date.month):
-            prevMonthFormat = "{month} {year}".format(month=MONTH_NAMES[prevMonth],year=tweet.date.year)
+            prevMonthFormat = "{month}.{year}".format(month=MONTH_NAMES[prevMonth],year=tweet.date.year)
             G1.add_edge(prevMonthFormat,monthFormat,weight=4.0)
             prevMonth = tweet.date.month
         
@@ -61,8 +68,15 @@ def create_time_graph2(tweets):
         #G1.add_edge(MONTH_TAG,monthFormat,weight=8.0)
     return G1
 
-def create_time_graph3(tweets):
-    G1 = nx.DiGraph()
+def create_time_graph3_with_weight(tweets, is_directed=False):
+    
+    G1 = None
+    
+    if is_directed:
+        G1 = nx.DiGraph()
+    else:
+        G1 = nx.Graph()
+        
     G1.add_node(YEAR_TAG)
     G1.add_node(MONTH_TAG)
     G1.add_node(DAY_TAG)
@@ -106,8 +120,15 @@ def create_time_graph3(tweets):
        
     return G1
 
-def create_time_graph3_no_weight(tweets):
-    G1 = nx.DiGraph()
+def create_time_graph3_without_weight(tweets, is_directed=False):
+    
+    G1 = None
+    
+    if is_directed:
+        G1 = nx.DiGraph()
+    else:
+        G1 = nx.Graph()
+        
     G1.add_node(YEAR_TAG)
     G1.add_node(MONTH_TAG)
     G1.add_node(DAY_TAG)

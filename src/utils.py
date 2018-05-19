@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 
-def draw_tsne(model, path=None):
+def draw_tsne(model, path=None, fig_size=(50,50)):
     "Creates and TSNE model and plots it"
     labels = []
     tokens = []
@@ -19,7 +19,7 @@ def draw_tsne(model, path=None):
         x.append(value[0])
         y.append(value[1])
         
-    plt.figure(figsize=(50, 50)) 
+    plt.figure(figsize=fig_size) 
     for i in range(len(x)):
         plt.scatter(x[i],y[i])
         plt.annotate(labels[i],
