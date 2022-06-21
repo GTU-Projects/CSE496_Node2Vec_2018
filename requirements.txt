@@ -36,7 +36,7 @@ networkx==2.1
 nltk==3.2.5
 node2vec==0.1.1
 notebook==5.4.0
-numpy==1.14.2
+numpy==1.22.0
 pandas==0.22.0
 pandocfilters==1.4.2
 parso==0.1.1
